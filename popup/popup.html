@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Converter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="titlebar">
+      <h1>Image Converter &amp; Compressor</h1>
+      <button id="openTab" type="button" class="ghost small" title="Keeps your files open while you switch tabs">Open in tab</button>
+    </div>
+    <p>Files stay on your device.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Mode">
+    <button type="button" role="tab" data-mode="convert" aria-controls="panel-convert">Convert</button>
+    <button type="button" role="tab" data-mode="shrink" aria-controls="panel-shrink">Shrink to size</button>
+  </div>
+
+  <section id="panel-convert" role="tabpanel" class="panel">
+    <div class="seg" role="radiogroup" aria-label="Convert to">
+      <button type="button" role="radio" data-format="png">PNG</button>
+      <button type="button" role="radio" data-format="jpg">JPG</button>
+      <button type="button" role="radio" data-format="webp">WebP</button>
+    </div>
+  </section>
+
+  <section id="panel-shrink" role="tabpanel" class="panel" hidden>
+    <div class="chips" id="chips" role="group" aria-label="Maximum file size"></div>
+    <div class="fields">
+      <label>Under
+        <input id="targetKB" type="number" min="0" step="10" placeholder="Custom">
+        <span class="unit">KB</span>
+      </label>
+      <label>Output
+        <select id="shrinkFormat">
+          <option value="jpg">JPG (best for forms)</option>
+          <option value="same">Same format</option>
+          <option value="webp">WebP</option>
+        </select>
+      </label>
+    </div>
+    <label class="check"><input id="keepDims" type="checkbox"> Keep dimensions (don’t resize)</label>
+    <p class="hint">1 KB = 1,000 bytes, so results pass strict upload limits.</p>
+  </section>
+
+  <details class="adv">
+    <summary>Advanced</summary>
+    <div class="advbody">
+      <label id="qualityRow"><span id="qualityLabel">Quality</span>
+        <input id="quality" type="range" min="10" max="100" step="1">
+        <output id="qualityOut"></output>
+      </label>
+      <label id="widthRow">Max width
+        <input id="maxWidth" type="number" min="0" step="10" placeholder="Original">
+        <span class="unit">px</span>
+      </label>
+      <label id="bgRow" hidden>Transparent areas become
+        <input id="background" type="color">
+      </label>
+    </div>
+  </details>
+
+  <label id="drop" class="drop" tabindex="0">
+    <input id="file" type="file" accept="image/*" multiple hidden>
+    <strong>Drop images here</strong>
+    <span>or click to choose. You can also paste with Ctrl+V.</span>
+  </label>
+  <p class="privacy">Nothing is uploaded, so ID and form photos stay private.</p>
+
+  <ul id="results" aria-live="polite"></ul>
+  <p id="summary" class="summary" hidden></p>
+
+  <footer id="actions" hidden>
+    <button id="downloadAll" type="button">Download all</button>
+    <button id="clear" type="button" class="ghost">Clear</button>
+  </footer>
+
+  <p class="tip">Tip: right-click any image on a page to save it in the format you pick. Your size settings apply there too.</p>
+  <p id="lifetime" class="lifetime" hidden></p>
+  <a class="more" href="https://smallprep.com/tools" target="_blank" rel="noopener">More free tools at smallprep.com</a>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
